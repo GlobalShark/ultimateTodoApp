@@ -1,0 +1,73 @@
+/* Sign form */
+.signupForm{
+    width:600px;
+    margin:auto;
+    margin-top:5%
+}
+.signupForm:hover{
+box-shadow:5px 5px 5px 5px #aaaaaa;
+}
+/* Signup error message text */
+.signuperrortxt{
+    color:red
+}
+/* Signup Text */
+.signuptxt{
+    padding-top:5%;
+    font-size: 27px;
+    padding-left: 30%;
+    /* text-align: center; */
+}
+#signupinput{
+   width: 450px;
+   margin-top: 10px;
+   margin-bottom: 5px;
+   /* padding-left: 100px; */
+   /* margin-left: 50%; */
+   /* background-color: red; */
+}
+#loginbtn{
+    width: 450px;
+    margin-top: 10px;
+    margin-bottom: 10%;
+}
+/* Signup checkbox */
+#signupchecboxtxt{
+    margin-top:20px;
+    margin-right:65%;
+}
+#signupcheckbox{
+    margin-left:15%;
+}
+/* Form Checking */
+#formchecking{
+    color:red;
+}
+#firebaseformchecking{
+    color:lightseagreen;
+}
+/* Login Form */
+.loginForm{
+    width:700px;
+    margin:auto;
+    
+}
+/*Login Text  */
+.logintxt{
+    padding-top:10px;
+    font-size: 27px;
+}
+/* Login Input */
+#logininput{
+    width: 500px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+ }
+ .signupinsidebox{
+     padding-left: 80px;
+ }
+ .signupnote{
+     color:#877787;
+     text-align:center;
+     padding-top: 3%;
+ }
