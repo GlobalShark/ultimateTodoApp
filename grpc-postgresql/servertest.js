@@ -10,48 +10,81 @@ db.connect((err) => {
         console.log('Postgres Connected')
     }
 })
+var no_of_test = 0;  // the initializer that counts the no of test passed
 
 
-// Database insertion
+// code for inserting a record into db
 try{
 db.query('INSERT INTO ultimate_todo (todo, description) VALUES ($1, $2)', ["Todo App Development", "Make a todo app given from axiom"], (err) => {
   if (err) throw err;
-  console.log("Insert Query Passed")
+  console.log("Insert a record into db (Query Passed)")
 })
-}catch (err){if(!err){  console.log("Insert Query Failed")
+no_of_test = no_of_test + 1;
+}
+catch (err){if(!err){  console.log("Insert a record into db (Query Failed)")
 }}
 
-
-// select all todos from db
+//code for updating a selected record into db
+try{
+db.query('UPDATE ultimate_todo SET description =$1  WHERE todo = $2', ["Make a todo app given from axiom(Updated)", "Todo App Development(Updated)"], (err) => {
+            if (err) throw err;
+            console.log("Update selected record into db (Query Passed)");
+            
+})
+no_of_test = no_of_test + 1;
+}
+catch (err){if(!err){  console.log("Update selected record into db (Query Failed)")
+}}
+           
+// code for selecting all records from db
 try{
   db.query(`SELECT * FROM ultimate_todo`, (err, res) => {
     if (err) throw err;
-    console.log("Get Query Passed")
+    console.log("Select all records from db (Query Passed)")
 })
-}catch (err){if(!err){  console.log("Get Query Failed")
+no_of_test = no_of_test + 1;
+}
+catch (err){if(!err){  console.log("Select all records from db (Query Failed)")
 }}
 
-//get one record from db
+//code for getting selected record from db
 try{
 const query = {
-  todo: 'gym',
+  todo: 'Todo App Development(Updated)',
   text: 'SELECT * FROM ultimate_todo WHERE todo = todo'
 }
 db.query(query, (err, res) => {
   if (err) throw err;
-    console.log("Get one record Query Passed")
+    console.log("Get selected record from db (Query passeed)")
+    no_of_test = no_of_test + 1;
 })
-}catch (err){if(!err){  console.log("Get One record Query Failed")
+no_of_test = no_of_test + 1;
+}
+catch (err){if(!err){  console.log("Get selected record from db (Query Failed)")
 }}
-//delete one record from db
+//code for deleting selected record from db
 try{
 const query = {
-  todo: 'gym',
+  todo: 'Todo App Development(Updated)',
   text: 'DELETE FROM ultimate_todo WHERE todo = todo'
 }
 db.query(query, (err, res) => {
   if (err) throw err;
-    console.log("Delete one record Query Passed")
+    console.log("Delete selected record from db (Query Passed)")
+    
 })
-}catch (err){if(!err){  console.log("Delete One record Query Failed")
+no_of_test = no_of_test + 1;
+}
+
+catch (err){if(!err){  console.log("Delete selected record from db (Query Failed)")
 }}
+
+
+if (no_of_test === 5)  //total 5 tests are written
+{
+console.log("All " +no_of_test+" tests are passed");
+}
+else
+{
+console.log("Only " +no_of_test+" tests are passed");
+}
