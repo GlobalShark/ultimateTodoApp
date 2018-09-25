@@ -6,7 +6,7 @@ service TodoService {
   rpc List (Empty) returns (TodoList);
   rpc Insert (Todo) returns (Empty);
   rpc Get (Todotitle) returns (Todo);
-  rpc Update (Todo) returns (Todo);
+  rpc Update (Updated_Todo) returns (Todo);
   rpc Delete (Todotitle) returns (Empty);
 }
 
@@ -28,4 +28,11 @@ message TodoList {
 
 message Todotitle {
   string title = 1;
+}
+
+message Updated_Todo {
+  string title = 1;
+  string description = 2;
+  string priority = 3;
+  bool done = 4;
 }
