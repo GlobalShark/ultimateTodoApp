@@ -18,9 +18,13 @@ message Todo {
   string todo = 1;
   string description = 2;
 }
-
+message myList {
+  int32 id = 1;
+  string todo = 2;
+  string description = 3;
+}
 message TodoList {
-  repeated Todo todos = 1;
+  repeated myList todos = 1;
 }
 
 message Todotitle {
