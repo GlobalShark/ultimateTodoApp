@@ -1,9 +1,9 @@
 
-const PROTO_PATH = __dirname + '/todo.proto';
-const grpc = require('grpc');
-var protoLoader = require('@grpc/proto-loader');
+const PROTO_PATH = __dirname + '/todo.proto'; //path of protofile from current file(client.js)
+const grpc = require('grpc');  // code for using gRPC
+var protoLoader = require('@grpc/proto-loader'); //load a grpc pakage
 
-var packageDefinition = protoLoader.loadSync(
+var packageDefinition = protoLoader.loadSync(  // necessary coding for protofile required for running client
     PROTO_PATH, { keepCase: true, enums: String, defaults: true });
 var todoproto = grpc.loadPackageDefinition(packageDefinition).todoproto;
 // The protoDescriptor object has the full package hierarchy
@@ -16,13 +16,13 @@ function printResponse(error, response) {
     else
         console.log('response',response);
 }
-
-function todosList() {
+//function that request to get complete todolist from db
+function todosList() {   
   client.list({}, function (error, todos) {
        printResponse(error, todos);
     });
     }
-
+//function that request for inserting a task
 
 function insertTodo(_id, title, description,priority,done) {
     var todo = {
@@ -37,7 +37,7 @@ function insertTodo(_id, title, description,priority,done) {
         printResponse(error, empty);
     });
 }
-
+ //function that request to get a particular task from db
 function getTodo(title) {
     client.get({
         title:title
@@ -45,7 +45,7 @@ function getTodo(title) {
         printResponse(error, todo);
     });
 }
-
+ //function that request to delete a particular todo
 function deleteTodo(title) {
     client.delete({
         title:title
@@ -55,16 +55,31 @@ function deleteTodo(title) {
         printResponse(error, empty);
     });
 }
+//function that request to update a particular task into db
+function updateTodo(title, description,priority,done) {
+    var todo = {
+        title: title,
+        description: description,
+        priority:priority,
+        done:done
+    };
+    client.update(todo, function (error, empty) {
+        console.log("Task UPDATED SUCCESSFULLY");
+        printResponse(error, empty);
+    });
+}
 
 var processName = process.argv.shift();
 var scriptName = process.argv.shift();
 var command = process.argv.shift();
-
+// all commands for todo list 
 if (command == 'list')
     todosList();
 else if (command == 'insert')
-    insertTodo(process.argv[0], process.argv[1], process.argv[2],process.argv[3],process.argv[3]);
+    insertTodo(process.argv[0], process.argv[1], process.argv[2],process.argv[3],process.argv[4]);
 else if (command == 'get')
     getTodo(process.argv[0]);
 else if (command == 'delete')
     deleteTodo(process.argv[0]);
+else if (command == 'update')
+    updateTodo(process.argv[0], process.argv[1], process.argv[2],process.argv[3]);
