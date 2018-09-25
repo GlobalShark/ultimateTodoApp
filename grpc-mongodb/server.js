@@ -1,18 +1,17 @@
-const grpc = require('grpc');
-const protoTodos = grpc.load('todo.proto');
-const server = new grpc.Server();
-var mongo = require('mongodb');
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/todolist";
-
-var no_of_items = 0;
-var todos = [{
+const grpc = require('grpc');    // code for using gRPC
+const protoTodos = grpc.load('todo.proto');  // code for connecting protofile in server code
+const server = new grpc.Server();  //code for generating gRPC server
+var mongo = require('mongodb'); //code for connecting mongodb to server
+var MongoClient = require('mongodb').MongoClient;  //code for connecting mongodb to server
+var url = "mongodb://localhost:27017/todolist";   //mongodb url for current server db
+ // list for inserting all tasks(initially empty)
+var todos = [{        
    
     
 }];
-
+//function for connecting protofile from server
 server.addService(protoTodos.todoproto.TodoService.service, {
-
+// function for getting all tasks from db
     list: function(_, callback) {
         var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
@@ -23,11 +22,12 @@ MongoClient.connect(url, function(err, db) {
     if (err) throw err;
      console.log("Tasks in DB are given below: ")
      console.log(result);
+     
     db.close();
   });
 });
     },
-
+      // function for getting selected task from db
     get: function(call, callback) {
         var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
@@ -44,7 +44,7 @@ MongoClient.connect(url, function(err, db) {
   });
 });
 },   
-
+    // function for inserting a task into db
     insert: function(call, callback) {
        var todo = call.request;
        var MongoClient = require('mongodb').MongoClient;
@@ -59,11 +59,10 @@ MongoClient.connect(url, function(err, db) {
        db.close();
   });
 });
-       // todos.push(todo);
-       // callback(null, {});
+       
     },
        
-
+       // function for deleting requested task from db
     delete: function(call, callback) {
     var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
@@ -78,9 +77,29 @@ MongoClient.connect(url, function(err, db) {
     db.close();
   });
 });    
-    },   
+    },
+
+    // function for updating requested task
+    update: function(call, callback) {
+       var todo = call.request;
+       var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://127.0.0.1:27017/";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("todolist");
+  var myquery = {title: call.request.title  };
+  var newvalues = { $set: {title:call.request.title,description:call.request.description,priority:call.request.priority,done:call.request.done } };
+  dbo.collection("tasks").updateOne(myquery, newvalues, function(err, res) {
+    if (err) throw err;
+    console.log("1 document updated");
+    db.close();
+  });
 });
-// gRPC Server
+   
+    },
+});
+// gRPC Server code(that bind and runs the server)
 server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
 console.log('grpc server starting on :', '0.0.0.0:50051');
 server.start();
