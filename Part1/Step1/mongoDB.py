@@ -112,7 +112,15 @@ def addTodo():
     todo = mongo.db.todo_add
     todo.insert_one({'title': request.json['title'], 'description': request.json['description']})
     return jsonify({'message': 'SuccessFully add'})
+@app.route('/update/<string:id>', methods=['PUT'])
+def updateTodo(id):
+    todo = mongo.db.todo_add
+    result = todo.find_one({'_id': ObjectId(id)})
 
+    result['title'] = request.json['title']
+    result['description'] = request.json['description']
+    todo.save(result)
+    return jsonify({'message': 'SuccessFully Updated'})
 
 
 @app.route('/deleteTodo/<string:id>', methods=['DELETE'])
