@@ -109,7 +109,7 @@ class Dashboard extends Component {
     // Recieve Props 
     componentWillReceiveProps(){
         const data = this.props.FetchTodos.todoData.payload //Data 
-        console.log("Recive props datas",data)
+        // console.log("Recive props datas",data)
         this.setState({
             todosList:data
         })
@@ -173,7 +173,7 @@ class Dashboard extends Component {
             uid: this.props.session.user.uid
         }
         axios.post(`http://localhost:5050/logoutUser`, { logout }).then(res => {
-            console.log("then", res);
+            // console.log("then", res);
             this.props.logout()
             sessionService.deleteSession();
             sessionService.deleteUser();
@@ -213,7 +213,7 @@ class Dashboard extends Component {
                                                                 <div id="txt" ></div>
                                                                 <div className="col-sm-12" id="addToDo"><br /><br /><br /><br />
                                                                     <h4 className="element-header">
-                                                                        Your Todos
+                                                                        Todosss
                                                                 </h4>                                                                                                                                    
 
                                                                 <br />
@@ -271,7 +271,7 @@ class Dashboard extends Component {
                                                         :
                                                         <div>
                                                             {
-                                                                console.log("Task not found")
+                                                                // console.log("Task not found")
                                                             }
                                                         </div>
                                                     }

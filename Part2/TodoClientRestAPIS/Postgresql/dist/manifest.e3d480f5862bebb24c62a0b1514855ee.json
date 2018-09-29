@@ -1,0 +1,11 @@
+{
+  "name": "My Applications Friendly Name",
+  "short_name": "Application",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "/",
+  "description": "Description!",
+  "background_color": "#01579b",
+  "theme_color": "#01579b",
+  "theme-color": "#01579b"
+}

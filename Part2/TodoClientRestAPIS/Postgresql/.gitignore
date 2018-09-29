@@ -6,6 +6,7 @@
 
 # env
 /env
+/server
 # production
 /build
 
