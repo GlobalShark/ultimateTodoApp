@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="style-todo.css" />    
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet" type="text/css">
+    <link href="../bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="../bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="../bower_components/dropzone/dist/dropzone.css" rel="stylesheet">
+    <link href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="../bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="../css/main.css?version=3.5.1" rel="stylesheet">
+    <link href="../icon_fonts_assets/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="../icon_fonts_assets/themefy/themify-icons.css" rel="stylesheet">
+    <link href="../icon_fonts_assets/picons-thin/style.css" rel="stylesheet">
+    <link href="../bower_components/slick-carousel/slick/slick.css" rel="stylesheet">
+    <link href="../bower_components/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="../bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="../css/front/main.css?version=3.5.1" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="../dist/bootstrap-clockpicker.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="clock.css">
+
+    <style type="text/css">
+        .auth-box-w .logo-w {
+            text-align: center;
+            padding: 7%;
+        }
+        img{
+            width: 150px;
+            border-radius: 48%;
+        }
+                
+        h1 {
+        font-size: 2em;
+        }
+
+        span {
+        border-right: .05em solid;
+        animation: caret 1s steps(1) infinite;
+        }
+
+        @keyframes caret {
+        50% {
+            border-color: transparent;
+        }
+        }
+    </style>
+</head>
+ <body>
+    <div class="all-wrapper menu-side with-pattern">
+      <div class="auth-box-w wider">
+        <div class="logo-w">
+          <a href="index.html"><img alt="" src="../img/todo.png"></a>
+        </div>
+        <h4 class="auth-header">
+          Create Account
+        </h4>
+        <form action="signup-try.php" method="post" >
+          <div class="form-group">
+            <label for=""> CNIC </label><input class="form-control" placeholder="Enter email" type="email">
+            <div class="pre-icon icon-user"></div>
+          </div>
+          <div class="form-group">
+            <label for=""> Email address</label><input name="email" required="required" class="form-control" placeholder="Enter email" type="email">
+            <div class="pre-icon os-icon os-icon-email-2-at2"></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for=""> Password</label><input name="password" required="required" class="form-control" placeholder="Password" type="password">
+                <div class="pre-icon os-icon os-icon-fingerprint"></div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="">Confirm Password</label><input class="form-control" placeholder="Password" type="password">
+              </div>
+            </div>
+          </div>
+          <div class="buttons-w">
+            <button class="btn btn-primary">Register Now</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+<script src="main.js"></script>
+<script src="reader.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../bower_components/dragula.js/dist/dragula.min.js"></script>
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/moment/moment.js"></script>
+<script src="../bower_components/chart.js/dist/Chart.min.js"></script>
+<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="../bower_components/ckeditor/ckeditor.js"></script>
+<script src="../bower_components/bootstrap-validator/dist/validator.min.js"></script>
+<script src="../bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="../bower_components/dropzone/dist/dropzone.js"></script>
+<script src="../bower_components/editable-table/mindmup-editabletable.js"></script>
+<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="../bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="../bower_components/tether/dist/js/tether.min.js"></script>
+<script src="../bower_components/bootstrap/js/dist/util.js"></script>
+<script src="../bower_components/bootstrap/js/dist/alert.js"></script>
+<script src="../bower_components/bootstrap/js/dist/button.js"></script>
+<script src="../bower_components/bootstrap/js/dist/carousel.js"></script>
+<script src="../bower_components/bootstrap/js/dist/collapse.js"></script>
+<script src="../bower_components/bootstrap/js/dist/dropdown.js"></script>
+<script src="../bower_components/bootstrap/js/dist/modal.js"></script>
+<script src="../bower_components/bootstrap/js/dist/tab.js"></script>
+<script src="../bower_components/bootstrap/js/dist/tooltip.js"></script>
+<script src="../bower_components/bootstrap/js/dist/popover.js"></script>
+<script src="../js/main.js?version=3.5.1"></script>
+<script type="text/javascript" src="../dist/bootstrap-clockpicker.min.js"></script> <!-- ok -->
+<script type="text/javascript">
+$('.clockpicker').clockpicker({
+    placement: 'bottom',
+    align: 'left',
+    donetext: 'Done'
+});
+$('#input-icon').click(function() {
+    $('input').focus();
+});
+</script>
+<script type="text/javascript" src="../js/sweetalert2.all.js"></script>
+</html>
