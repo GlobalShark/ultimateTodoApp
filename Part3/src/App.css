@@ -1,0 +1,154 @@
+.App {
+  /*text-align: center;*/
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/*Todo css*/
+body {
+  margin: 0;
+  min-width: 250px;
+  background: linear-gradient(to bottom right, #D7BBEA, #65A8F1);
+}
+.main{
+    background-color: #673ab7;
+    text-align: center;
+    padding: 30px 40px;
+    color: white;
+}
+.main:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.input-tab{
+    border: none;
+    width: 75%;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+    color: #000;
+}
+.add-btn{
+    padding: 10px;
+    width: 20%;
+    background: #d9d9d9;
+    color: #555;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.add-btn:hover{
+    background-color: #bbb;
+}
+
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+/* Style the list items */
+ul li {
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  background: #eee;
+  font-size: 18px;
+  transition: 0.2s;
+  
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+
+.close {
+  height: 49px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+.close:hover {
+  background-color: #673ab7;
+  color: white;
+}
+
+.edit-close {
+  height: 49px;
+  /*position: absolute;*/
+  right: 640px;
+  top: 34px;;
+  padding: 12px 16px 12px 16px;
+}
+.edit-close:hover {
+  background-color: #673ab7;
+  color: white;
+}
+
+.edit {
+  height: 49px;
+  position: absolute;
+  right: 35px;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+.edit:hover {
+  background-color: #673ab7;
+  color: white;
+}
+
+.save{
+  height: 49px;
+  /*position: absolute;*/
+  right: 675px;
+  top: 34px;
+  padding: 12px 16px 12px 16px;
+}
+.save:hover {
+  background-color: #673ab7;
+  color: white;
+}
+
+.input{
+ 
+  display: -webkit-inline-box;
+  margin-left: 40px;
+}
+.form-group {
+  margin-bottom: 1rem;
+  width: 68%;
+  background: white;
+  padding: 6%;
+  box-shadow: 2px 2px 1px grey;
+}
