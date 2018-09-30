@@ -10,7 +10,7 @@ Ultimate Todo App
 * In Memory App
 * IndexDB
 * Postgresql and Mongo connected with client
-* Firestoret
+* Firestore
 
 ## Contributors
 * [Hunnain Pasha](github.com/hunnain) - gRPC, gRPC-WEB, UI
