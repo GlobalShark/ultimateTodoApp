@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="style-todo.css" />    
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet" type="text/css">
+    <link href="../bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="../bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="../css/main.css?version=3.5.1" rel="stylesheet">
+    <link href="../icon_fonts_assets/themefy/themify-icons.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../dist/bootstrap-clockpicker.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="clock.css">
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+</head>
+<body>
+<div class="wrapper">  
+   <div class="content-i">
+    <div class="element-box">
+        <div class="row">
+          <div class="col-sm-12">
+              <div class="element-wrapper">
+              <div id="todo-list" class="row">
+                  <div id="clockers">
+                    <div id="clock">
+                      <div class="point"></div>
+                      <div class="point"></div>
+                      <div class="point"></div>
+                      <div class="point"></div>
+                      <div class="hours"></div>
+                      <div class="minutes"></div>
+                      <div class="seconds"></div>
+                      <div class="center"></div>
+                    </div>
+                  </div>
+                  <div id="txt" ></div>
+                <div class="col-sm-12" id="addToDo"><br/><br/><br/><br/>
+	              <h4 class="element-header">
+	                Your's Todo
+	              </h4><br/>
+                <div id="task">
+                <!-- <span class="todo-wrap">
+                  <input type="checkbox" id="1" checked/>
+                  <label for="1" class="todo">
+                    <i class="fa fa-check"></i>
+                    Have a good idea
+                  </label>
+                  <div class="timeLine">
+                    17-Sep-18 11:47
+                  </div>
+                  <span class="delete-item" title="remove"  onClick="deleteItem('+key+')">
+                    <i class="fa fa-times-circle"></i>
+                  </span>
+                  <span class="update-item" title="update" onClick="updateItem('+key+')">
+                    <i class="fa fa-edit"></i>
+                  </span>
+                </span> -->
+            	</div>
+                <span class="todo-wrap">
+                  <label for="" class="todo">
+                    <input id="text-todo" type="text" class="input-todo" placeholder="Write.. Todo"/>
+                    <input id="date-todo" type="text" class="input-todo single-daterange"  />
+                    <input id="time-todo" type="text" class="input-todo clockpicker" placeholder="Time"/>
+                  </label>
+                </span>
+                </div>
+                <div id="add-todo">
+                  <i class="fa fa-plus"></i>
+                  Add Item
+                </div> &nbsp; &nbsp;
+                <div id="action-todo">
+                  <i class="ti-microphone"></i>
+                  Listen Todo
+                </div>
+                <div class="col-sm-12 text-right">
+                  <div class="btn btn-danger">
+                    <i class="ti-logout"></i>
+                    Logout
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</body>
+<script src="main.js"></script>
+<script src="reader.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../bower_components/dragula.js/dist/dragula.min.js"></script>
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/moment/moment.js"></script>
+<script src="../bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="../bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="../bower_components/tether/dist/js/tether.min.js"></script>
+<script src="../bower_components/bootstrap/js/dist/tooltip.js"></script>
+<script src="../bower_components/bootstrap/js/dist/popover.js"></script>
+<script src="../js/main.js?version=3.5.1"></script>
+<script type="text/javascript" src="../dist/bootstrap-clockpicker.min.js"></script> <!-- ok -->
+<script type="text/javascript" src="../js/sweetalert2.all.js"></script>
+<script type="text/javascript">
+
+$('.clockpicker').clockpicker({
+    placement: 'bottom',
+    align: 'left',
+    donetext: 'Done'
+});
+
+$('#input-icon').click(function() {
+    $('input').focus();
+});
+</script>
+</html>

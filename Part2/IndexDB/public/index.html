@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!-- pwa add to home -->
+     <!-- manifeast code -->
+     <!-- Add to home screen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="todo">
+  <link rel="apple-touch-icon" href="todo.png">
+  <!-- <meta name="msapplication-TileImage" content="icon144.png"> -->
+  <meta name="msapplication-TileColor" content="#2F3BA2">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="style-todo.css" />    
+    <!-- <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet" type="text/css"> -->
+    <link href="../bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="../bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="../css/main.css?version=3.5.1" rel="stylesheet">
+    <link href="../icon_fonts_assets/themefy/themify-icons.css" rel="stylesheet">
+	  <link rel="stylesheet" type="text/css" href="../dist/bootstrap-clockpicker.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="clock.css">
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+  <script src="main.js"></script>
+  <script src="reader.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../bower_components/dragula.js/dist/dragula.min.js"></script>
+  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="../bower_components/moment/moment.js"></script>
+  <script src="../bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="../bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+  <script src="../bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
+  <script src="../bower_components/tether/dist/js/tether.min.js"></script>
+  <script src="../bower_components/bootstrap/js/dist/tooltip.js"></script>
+  <script src="../bower_components/bootstrap/js/dist/popover.js"></script>
+  <script src="../js/main.js?version=3.5.1"></script>
+  <script type="text/javascript" src="../dist/bootstrap-clockpicker.min.js"></script> <!-- ok -->
+  <script type="text/javascript" src="../js/sweetalert2.all.js"></script>
+  <script type="text/javascript">
+  $('.clockpicker').clockpicker({
+      placement: 'bottom',
+      align: 'left',
+      donetext: 'Done'
+  });
+  $('#input-icon').click(function() {
+      $('input').focus();
+  });
+  </script>
+</html>

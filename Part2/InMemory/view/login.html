@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>todo Dashboard</title>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta content="template language" name="keywords">
+    <meta content="Tamerlan Soziev" name="author">
+    <meta content="Admin dashboard html template" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet" type="text/css">
+    <link href="../bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="../bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="../bower_components/dropzone/dist/dropzone.css" rel="stylesheet">
+    <link href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="../bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="../css/main.css?version=3.5.1" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+    </script>
+    <style type="text/css">
+        .auth-box-w .logo-w {
+            text-align: center;
+            padding: 10%;
+        }
+        img{
+            width: 160px;
+            border-radius: 48%;
+        }
+                
+        h1 {
+        font-size: 2em;
+        }
+
+        span {
+        border-right: .05em solid;
+        animation: caret 1s steps(1) infinite;
+        }
+
+        @keyframes caret {
+        50% {
+            border-color: transparent;
+        }
+        }
+        .signup-w{
+          background-color: #dbdbdb;
+          text-align: right; 
+          padding: 10px;
+        }
+    </style>
+</head>
+ <body class="auth-wrapper">
+    <div class="all-wrapper menu-side with-pattern">
+      <div class="auth-box-w">
+        <div class="logo-w">
+          <a href="index.html"><img alt="" src="../img/todo.png"></a>
+        </div>
+        <h1 class="auth-header">
+          Welcome ToDo App 
+        </h1>
+        <form action="" method="POST" style="padding-bottom: 30px;" >
+          <div class="form-group">
+            <label for="">Username</label><input style="text-transform:none;" id="name" name="name" required="required" class="form-control" placeholder="Enter your username" type="text">
+            <div class="pre-icon os-icon os-icon-user-male-circle"></div>
+          </div>
+          <div class="form-group">
+            <label for="">Password</label><input style="text-transform:none;" id="password" name = "password" required="required" class="form-control" placeholder="Enter your password" type="password">
+            <div class="pre-icon os-icon os-icon-fingerprint"></div>
+          </div>
+          <div class="buttons-w">
+            <button class="btn btn-primary" type="submit" name="submit" >Log me in</button>
+              <!-- <label class="form-check-label"><a href="#" >Forget Password ?</a></label> -->
+          </div>
+          <div class="form-message">
+          </div>
+        </form>
+          <div class="buttons-w signup-w" style="" >
+            <div class="form-check-inline">
+              <label class="form-check-label" style="margin-right: 10px;">Create Account</label>
+            <a class="btn btn-secondary" href="signup.php" >Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+      document.addEventListener('DOMContentLoaded',function(event){
+        // array with texts to type in typewriter
+        var dataText = [ "Welcome To ToDo App","Create Your Account", "Or ", "Login To Continue"];
+        
+        // type one text in the typwriter
+        // keeps calling itself until the text is finished
+        function typeWriter(text, i, fnCallback) {
+            // chekc if text isn't finished yet
+            if (i < (text.length)) {
+            // add next character to h1
+            document.querySelector("h1").innerHTML = text.substring(0, i+1) +'<span aria-hidden="true"></span>';
+
+            // wait for a while and call this function again for next character
+            setTimeout(function() {
+                typeWriter(text, i + 1, fnCallback)
+            }, 100);
+            }
+            // text finished, call callback if there is a callback function
+            else if (typeof fnCallback == 'function') {
+            // call callback after timeout
+            setTimeout(fnCallback, 700);
+            }
+        }
+        // start a typewriter animation for a text in the dataText array
+        function StartTextAnimation(i) {
+            if (typeof dataText[i] == 'undefined'){
+                setTimeout(function() {
+                StartTextAnimation(0);
+                }, 20000);
+            }
+            // check if dataText[i] exists
+            if (i < dataText[i].length) {
+                
+            var msg = new SpeechSynthesisUtterance();
+            var voices = window.speechSynthesis.getVoices();
+            msg.voice = voices[2];
+            msg.text = dataText[i];
+            speechSynthesis.speak(msg);
+
+            // text exists! start typewriter animation
+            typeWriter(dataText[i], 0, function(){
+            // after callback (and whole text has been animated), start next text
+            StartTextAnimation(i + 1);
+            });
+            }
+        }
+        // start the text animation
+        StartTextAnimation(0);
+        });
+  </script>
+</html>
