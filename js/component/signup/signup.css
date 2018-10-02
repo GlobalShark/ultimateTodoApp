@@ -66,3 +66,9 @@ box-shadow:5px 5px 5px 5px #aaaaaa;
      text-align:center;
      padding-top: 5%;
  }
+ img{
+    width: 50%;
+ }
+ .auth-box-w .logo-w {
+    padding: 5%;
+}

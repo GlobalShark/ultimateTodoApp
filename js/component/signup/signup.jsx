@@ -63,6 +63,7 @@ class Signup extends Component{
         this.signupInputHandler = this.signupInputHandler.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.closeSnackbar =  this.closeSnackbar.bind(this)
+        this.changeLoginPath = this.changeLoginPath.bind(this)
     }
     signupInputHandler(ev){
       ev.preventDefault()
@@ -87,13 +88,13 @@ class Signup extends Component{
     }     
     const user = userData
 
-    axios.post(`http://localhost:5050/registeruser`, { user })
+    axios.post('http://localhost:5050/registeruser', { user })
 
       .then(res => {
         console.log("then",res);
         if(res.data === 'success'){
           console.log('Resdat',this.props.login_signup_reducer.loading)
-          var changePath = history.replace('/login')
+          var changePath = history.replace('/')
           setTimeout(changePath,5000)
           this.props.signupsucces()
 
@@ -110,6 +111,10 @@ class Signup extends Component{
 
 
   }
+  changeLoginPath(){
+    history.push('/')
+  }
+
   // close snackbar
   closeSnackbar(){
     this.setState({
@@ -133,25 +138,44 @@ class Signup extends Component{
               :
               this.state.snackbaropen=false
               }
-<Snackbar anchorOrigin={{ vertical:'top', horizontal:'left' }} open={this.state.snackbaropen}  SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span onClick={this.closeSnackbar} id="firebaseformchecking">{this.props.login_signup_reducer.errorMessage}</span>} />
-                <div className="signupForm">
-                <div className="signupinsidebox">
-                <h3 className="signuptxt">Signup</h3>
-                <form method="POST" className={styles.container} noValidate autoComplete="off" >
-                <TextField required label="UserName" placeholder="UserName" id="signupinput" defaultValue="" onChange={this.signupInputHandler} className={styles.textField} helperText="Example: John"  name="userName"/>
-                <TextField required label="Email" placeholder="Email" id="signupinput" defaultValue="" className={styles.textField} onChange={this.signupInputHandler} helperText="Example: abc@abc.com"  name="email"/>
-                <TextField required type="password" label="Password" placeholder="Password" id="signupinput" defaultValue="" onChange={this.signupInputHandler} className={styles.textField} helperText="Atleast 6 Character Required"  name="password"/>
-                <TextField id="signupinput" label="Birthday" type="date" className={styles.textField} onChange={this.signupInputHandler} InputLabelProps={{ shrink: true, }}  name="age" /> 
-                <FormLabel id="signupchecboxtxt" component="legend">Gender</FormLabel>
-                <RadioGroup aria-label="gender" name="gender" id="signupcheckbox" value={this.state.gender} onChange={this.signupInputHandler} className={styles.group} >
-                  <FormControlLabel  value="male" control={<Radio />} label="Male" name="male"/>
-                  <FormControlLabel  value="female" control={<Radio />} label="Female" name="female"/>
-                </RadioGroup>
-                <Button color="primary" onClick={this.handleSubmit} id="signupinput" className={styles.button}>Signup</Button>
-                </form>
+              <Snackbar anchorOrigin={{ vertical:'top', horizontal:'left' }} open={this.state.snackbaropen}  SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span onClick={this.closeSnackbar} id="firebaseformchecking">{this.props.login_signup_reducer.errorMessage}</span>} />                  
+                <div className="all-wrapper menu-side with-pattern">
+                  <div className="auth-box-w wider">
+                    <div className="logo-w">
+                      <a href="index.html"><img alt="" src="dist/img/todo.png"/></a>
+                    </div>
+                    <h3 className="auth-header">
+                      Create Account
+                    </h3>
+                    <form action="signup-try.php" method="post" >
+                      <div className="form-group">
+                        <label htmlFor=""> User Name </label><input className="form-control" placeholder="Enter UserName" type="text" required  onChange={this.signupInputHandler} name="userName"/>
+                        <div className="pre-icon icon-user"></div>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor=""> Email address</label><input name="email" required="required" className="form-control" placeholder="Enter email" type="email" onChange={this.signupInputHandler}/>
+                        <div className="pre-icon os-icon os-icon-email-2-at2"></div>
+                      </div>
+                      <div className="row">
+                        <div className="col-sm-12">
+                          <div className="form-group">
+                            <label htmlFor=""> Password</label><input name="password" required="required" className="form-control" placeholder="Password" type="password" onChange={this.signupInputHandler}/>
+                            <div className="pre-icon os-icon os-icon-fingerprint"></div>
+                          </div>
+                        </div>
+                        {/* <div className="col-sm-6">
+                          <div className="form-group">
+                            <label htmlFor="">Confirm Password</label><input className="form-control" placeholder="Password" type="password"/>
+                          </div>
+                        </div> */}
+                      </div>
+                      <div className="buttons-w">
+                        <button className="btn btn-primary" onClick={this.handleSubmit}>Register Now</button> &nbsp;
+                            <label className="form-check-label" onClick={this.changeLoginPath} >Login To Continue</label>
+                      </div>
+                    </form>
+                  </div>
                 </div>
-                </div>
-                <p className="signupnote"><b>Note:</b> You need to signup to add todos</p>
                 </div>
                 )}
                 </div>

@@ -50,7 +50,7 @@ class Navbar extends Component{
         const { classes } = this.props;
         return(
             <div className={classes.root}>
-            <AppBar position="static">
+            {/* <AppBar position="static">
               <Toolbar>
                 <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                 </IconButton>
@@ -70,7 +70,7 @@ class Navbar extends Component{
                   </div>
                 }
               </Toolbar>
-            </AppBar>
+            </AppBar> */}
           </div>
         )
     }

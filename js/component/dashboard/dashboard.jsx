@@ -23,6 +23,8 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
 import Autosuggest from 'react-autosuggest';
+import { sessionService } from 'redux-react-session';
+import TodoMiddleware from '../store/middleware/todo';
 
 
 
@@ -34,7 +36,7 @@ const styles = theme => ({
     },
     textField: {
         marginLeft: `${theme.spacing.unit}px 0`,
-        width: '100',
+        width: '600',
     },
     button: {
         margin: theme.spacing.unit,
@@ -61,29 +63,6 @@ var languages = [
     },
 ]
 
-// Teach Autosuggest how to calculate suggestions for any given input value.
-const getSuggestions = value => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-
-    return inputLength === 0 ? [] : languages.filter(lang =>
-        lang.name.toLowerCase().slice(0, inputLength) === inputValue
-    );
-};
-
-// When suggestion is clicked, Autosuggest needs to populate the input
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
-
-// Use your imagination to render suggestions.
-const renderSuggestion = suggestion => (
-    <div>
-        {suggestion.name}
-    </div>
-);
-
-
 class Dashboard extends Component {
     constructor(props) {
         super(props)
@@ -91,81 +70,56 @@ class Dashboard extends Component {
             todo: '',
             todosList: undefined,
             description: '',
+            updateTodo:false,
+            updateTodoVal:'',
+            updateTodoID:undefined,
+            updatedTodoValue:'',
         }
         this.classes = { props }
-        this.signupInputHandler = this.signupInputHandler.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.closeSnackbar = this.closeSnackbar.bind(this)
+        this._onChangeHandler = this._onChangeHandler.bind(this);
+        this._submitTodo = this._submitTodo.bind(this);
+        this.closeSnackbar = this.closeSnackbar.bind(this);
+        this.onChangeUpdateInput = this.onChangeUpdateInput.bind(this);
+        this.onSubmitUpdatedValue = this.onSubmitUpdatedValue.bind(this);
+        this.logout = this.logout.bind(this).bind(this);
     }
-    signupInputHandler(ev) {
-        ev.preventDefault()
-        var date = new Date();
+
+     // Onchange Todo
+    _onChangeHandler(event){
         this.setState({
-            [ev.target.name]: ev.target.value.toLowerCase(),
-            joiningdate: date.toUTCString()
+            todo: event.target.value
         })
-        console.log("state", this.props.session.user.uid)
-    }
-    handleSubmit(ev) {
-        ev.preventDefault();
-        var responsedata = ''
-        var userData = {
-            todo: this.state.todo,
-            description: this.state.description,
-            uid: this.props.session.user.uid
-        }
-        const user = userData
-
-        axios.post(`http://localhost:5050/addtodos`, { user })
-
-            .then(res => {
-                console.log("then", res);
-                if (res.data === 'success') {
-                    console.log('perfect')
-
-                }
-
-                responsedata = res.data
-                this.state.registerSuccess = responsedata
-
-            }).catch((error) => {
-                this.props.signupFailed(error)
-                console.log('Error checking', error)
-            })
     }
 
-    componentDidMount() {
-        var userData = undefined
-        axios.get('/fetchtodoapi/v1.0')
-            .then(function (response) {
-                console.log('myresponse todo', response);
-                return response
-                // this.setState({ todosList: response.data })
-                //   this.state.todosList = response
-                // .then((responseText) => responseText.json())
-                // .then((response) => this.setState(response));
-            }).then((res) => {
-                console.log('2nd then', res)
-                this.setState({ todosList: res.data })
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        console.log('after fetchtodoapi', userData)
-        this.setState({ todosList: userData })
+    // Todo Submit
+    _submitTodo(){
+        var typedTodo = this.state.todo;
+        const addTodo = {
+            typedTodo,
+            uid:this.props.session.user.uid
+        }; 
+             this.props.addtodo(addTodo)
+             this.props.fetchTodo()
     }
-    // Component Update
-    // componentWillUpdate(){
-    //     axios.get('/fetchtodoapi/v1.')
-    //     .then(function (response) {
-    //       console.log('myresponse todo',response);
-    //       this.state.todosList = response
 
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // }
+    // Action before render
+    componentWillMount() {
+        this.props.fetchTodo()
+    }
+
+    // Recieve Props 
+    componentWillReceiveProps(){
+        const data = this.props.FetchTodos.todoData.payload //Data 
+        console.log("Recive props datas",data)
+        this.setState({
+            todosList:data
+        })
+    }
+
+    // Props Update 
+    componentWillUpdate(){
+        this.props.fetchTodo()
+    }
 
     // close snackbar
     closeSnackbar() {
@@ -173,10 +127,66 @@ class Dashboard extends Component {
             snackbaropen: false
         })
     }
+
+    // Delete Todo
+    deleteTodo(val) {
+    let deleteTodo = {
+        val,
+        uid:this.props.session.user.uid
+    }
+    this.props.deleteTodo(deleteTodo)
+    }
+
+    // Boolean True on Button Press of Update
+    updateTodo(val){
+        this.setState({
+            updateTodo:true,
+            updateTodoVal:val.title,
+            updateTodoID:val.uid
+        })
+    }
+
+    // On change Update Input
+    onChangeUpdateInput(event){
+        this.setState({
+            updatedTodoValue:event.target.value
+        })
+    }
+
+    // Submit Updated Value
+    onSubmitUpdatedValue(){
+        var updateTodo = this.state.updatedTodoValue;
+        var previousTodo = this.state.updateTodoVal;
+        var todoId = this.state.updateTodoID;
+        const addTodo = {
+            previousTodo,
+            updateTodo,
+            uid:todoId
+        };
+        this.props.updateTodo(addTodo)
+        this.setState({
+            updateTodo:false,
+        })
+    }
+
+    // Logout
+    logout() {
+        var logout = {
+            uid: this.props.session.user.uid
+        }
+        axios.post(`http://localhost:5050/logoutUser`, { logout }).then(res => {
+            console.log("then", res);
+            this.props.logout()
+            sessionService.deleteSession();
+            sessionService.deleteUser();
+            history.replace('/');
+        })
+    }
+    // Render
     render() {
         const { classes } = this.props;
-        var todosList = this.state.todosList
-        // console.log('mymymymTodolist', todosList)
+        const {todosList , updateTodo, updateTodoVal} = this.state;
+        console.log('State',this.state.todosList)
         return (
             <DocumentTitle title="Dashboard">
                 <div className="signupContainer">
@@ -184,19 +194,141 @@ class Dashboard extends Component {
                         <div>
                             {(this.props.session.user.length === 0) ? (history.replace('/dashboard')) : (
                                 <div>
-                                    <p variant="display1" gutterBottom style={{ marginLeft: 50, marginTop: 10 }}>Joined Date {this.props.session.user.joiningdate}</p>
-                                    <Typography variant="display1" gutterBottom style={{ textAlign: 'center', marginTop: 10 }}>Welcome {this.props.session.user.username}</Typography>
-                                    <div id="tododiv">
-                                        <TextField required label="Add Todos" placeholder="Add Todos" id="signupinput" defaultValue="" helperText="Example: Going to Jym" onChange={this.signupInputHandler} className=
-                                            {styles.textField} name="todo" />
-                                        <TextField required label="Description" placeholder="Description" id="signupinput" defaultValue="" onChange={this.signupInputHandler} className=
-                                            {styles.textField} name="description" />
-                                        <TextField required label="Add Todos" placeholder="Remainder Date" id="remainderDate" defaultValue="" className={styles.textField} name="date" />
-                                        <TextField required label="Add Todos" placeholder="Remainder Time" id="remainderTime" defaultValue="" className={styles.textField} name="time" />
-                                        <TextField required label="Description" placeholder="Description" id="signupinput" defaultValue="" onChange={this.signupInputHandler} className=
-                                            {styles.textField} name="description" />
-                                        <br />
-                                        <Button variant="contained" color="primary" onClick={this.handleSubmit} style={styles.button} >Add Todos</Button>
+                                    <div className="wrapper">
+                                        <div className="content-i">
+                                            <div className="element-box">
+                                                <div className="row">
+                                                    <div className="col-sm-12">
+                                                        <div className="element-wrapper">
+                                                            <div id="todo-list" className="row">
+                                                                <div id="clockers">
+                                                                    <div id="clock">
+                                                                        <div className="point"></div>
+                                                                        <div className="point"></div>
+                                                                        <div className="point"></div>
+                                                                        <div className="point"></div>
+                                                                        <div className="hours"></div>
+                                                                        <div className="minutes"></div>
+                                                                        <div className="seconds"></div>
+                                                                        <div className="center"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="txt" ></div>
+                                                                <div className="col-sm-12" id="addToDo"><br /><br /><br /><br />
+                                                                    <h4 className="element-header">
+                                                                        Your Todos
+                                                                </h4>                                                                                                                                    
+
+                                                                <br />
+                                                                {/* Todo List */}
+                                                                {/* <span className="todo-wrap">
+                                                    <input type="checkbox" id="1"/>
+                                                    <label htmlFor="1" className="todo">
+                                                        <i className="fa fa-check"></i>
+                                                        Have a good idea
+                                                    </label>
+                                                    <div className="timeLine">
+                                                        17-Sep-18 11:47
+                                                    </div>
+                                                    <span className="delete-item" title="remove">
+                                                        <i className="fa fa-times-circle"></i>
+                                                    </span>
+                                                    </span>
+                                                    <br />
+                                                    <span className="todo-wrap">
+                                                    <input type="checkbox" id="2"/>
+                                                    <label htmlFor="2" className="todo">
+                                                        <i className="fa fa-check"></i>
+                                                        Plan idea execution
+                                                    </label>
+                                                    <div className="timeLine">
+                                                        17-Sep-18 11:47
+                                                    </div>
+                                                    <span className="delete-item" title="remove">
+                                                        <i className="fa fa-times-circle"></i>
+                                                    </span>
+                                                    </span> */}
+                                                    {
+                                                        (todosList)?
+                                                         <div>
+                                                             {
+                                                                todosList.map((val,key)=>{
+                                                                    return(
+                                                                    <div>
+                                                                            <span className="todo-wrap" key={val.$oid.$oid}>
+                                                                            <input type="checkbox" id={val.$oid.$oid}/>
+                                                                            <label htmlFor={val.$oid.$oid} className="todo">
+                                                                            <i className="fa fa-check"></i>{val.title}</label>
+                                                                            {console.log("My all todo",val.$oid.$oid)}
+                                                                            <div className="timeLine">{new Date().toUTCString()}</div>
+                                                                            {/* <button onClick={this.updateTodo.bind(this,{title:val.title,uid:val.$oid.$oid})}>Update</button> */}
+                                                                            <Button onClick={this.updateTodo.bind(this,{title:val.title,uid:val.$oid.$oid})}>
+                                                                            <i className="fa fa-pencil"></i>
+                                                                            </Button>
+                                                                            <span className="delete-item" title="remove" onClick={this.deleteTodo.bind(this,val.todo)}>
+                                                                            <i className="fa fa-times-circle"></i>
+                                                                            </span>
+                                                                            </span>
+                                                                            <br /> 
+                                                                    </div>
+                                                                    )
+                                                                })
+                                                             }
+                                                         </div>
+                                                        :
+                                                        <div>
+                                                            {
+                                                                console.log("Task not found")
+                                                            }
+                                                        </div>
+                                                    }
+                                                    </div>
+                                                                <div className="row" id="action-todo">
+                                                                    <div className="col-sm-12">
+                                                                    <i className="ti-microphone"></i>
+                                                                    Listen Todo
+                                                                    </div>
+                                                                    <br /><br />
+                                                                </div>
+                                                                {
+                                                                    (updateTodo)?
+                                                                    <div>
+                                                                        <div className="row">
+                                                                            <div className="col-sm-8">
+                                                                                <TextField id="standard-with-placeholder" label="Update your Todo" placeholder={updateTodoVal} className={classes.textField} margin="normal" onChange={this.onChangeUpdateInput}/> 
+                                                                            </div>
+                                                                        </div>
+                                                                        <Button variant="contained" color="primary" className={classes.button} onClick={this.onSubmitUpdatedValue}>Update {updateTodoVal}</Button>
+                                                                        <Button onClick={()=>{this.setState({updateTodo:false,})}}>Cancel</Button>
+                                                                    </div>
+                                                                    :
+                                                                    <div>
+                                                                        <div className="row">
+                                                                            <div className="col-sm-8">
+                                                                                <TextField id="standard-with-placeholder" label="Write Todo Here" placeholder="Going To Gym" className={classes.textField} margin="normal" onChange={this._onChangeHandler}/> 
+                                                                            </div>
+                                                                        </div>    
+                                                                        <Button variant="contained" color="primary" className={classes.button} onClick={this._submitTodo}>Add</Button>
+                                                                    </div>
+                                                                }
+                                                                {/* <div className="row">
+                                                                        <div className="col-sm-8">
+                                                                            <TextField id="standard-with-placeholder" label="Write Todo Here" placeholder="Going To Gym" className={classes.textField} margin="normal" onChange={this._onChangeHandler}/> 
+                                                                        </div>
+                                                                </div>
+                                                                <Button variant="contained" color="primary" className={classes.button} onClick={this._submitTodo}>Add</Button> */}
+                                                                <div className="col-sm-12 text-right">
+                                                                    <div className="btn btn-danger" onClick={this.logout}>
+                                                                        <i className="os-icon os-icon-signs-11"></i>
+                                                                        Logout
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             )}
@@ -214,20 +346,27 @@ class Dashboard extends Component {
 function mapStateToProp(state) {
     return {
         login_signup_reducer: state.login_signup_reducer,
-        session: state.session
+        session: state.session,
+        FetchTodos:state.FetchTodos
     }
 }
 //Map Dispatch to Props
 function mapDispatchToProps(dispatch) {
     return {
-        signup: (userInfo) => {
-            dispatch(login_signup_action.register())
+        logout: () => {
+            dispatch(login_signup_action.logout())
         },
-        signupsucces: (userInfo) => {
-            dispatch(login_signup_action.register_success())
+        addtodo:(data)=>{
+           dispatch(TodoMiddleware.asynctodo(data))
         },
-        signupFailed: (error) => {
-            dispatch(login_signup_action.register_failed(error))
+        fetchTodo:()=>{
+            dispatch(TodoMiddleware.asyncFetchTodo())
+        },
+        deleteTodo:(data)=>{
+          dispatch(TodoMiddleware.deleteTodo(data))
+        },
+        updateTodo:(data)=>{
+            dispatch(TodoMiddleware.updateTodo(data))
         }
     }
 }

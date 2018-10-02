@@ -59,6 +59,7 @@ class Login extends Component{
         this.signupInputHandler = this.signupInputHandler.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.closeSnackbar =  this.closeSnackbar.bind(this)
+        this.changeLoginPath = this.changeLoginPath.bind(this)
     }
     signupInputHandler(ev){
       ev.preventDefault()
@@ -71,10 +72,10 @@ class Login extends Component{
   }
   handleSubmit(ev){
     ev.preventDefault();
-    this.props.login()
+    this.props.login()  
     var responsedata = ''
     var userData = {
-      userName:this.state.userName,
+      //userName:this.state.userName,
       email:this.state.email,
       password:this.state.password,
     }     
@@ -116,6 +117,9 @@ class Login extends Component{
 
 
   }
+  changeLoginPath(){
+    history.push('/signup')
+  }
   // close snackbar
   closeSnackbar(){
     this.setState({
@@ -135,18 +139,47 @@ class Login extends Component{
               :
               this.state.snackbaropen=false
               }
-<Snackbar anchorOrigin={{ vertical:'top', horizontal:'left' }} open={this.state.snackbaropen}  SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span onClick={this.closeSnackbar} id="firebaseformchecking">Email or Password is incorrect</span>} />
-                <div className="signupForm">
-                <div className="signupinsidebox">
-                <h3 className="signuptxt">Login</h3>
-                <form method="POST" className={styles.container} noValidate autoComplete="off" >
-                <TextField required label="Email" placeholder="Email" id="signupinput" defaultValue="" className={styles.textField} onChange={this.signupInputHandler}  name="email"/>
-                <TextField required type="password" label="Password" placeholder="Password" id="signupinput" defaultValue="" onChange={this.signupInputHandler} className={styles.textField}  name="password"/>
-                <Button color="primary" onClick={this.handleSubmit} id="loginbtn" className={styles.button}>Login</Button>
-                </form>
-                </div>
-                </div>
-                <p className="signupnote"><b>Note:</b> You need to Login to add todos</p>
+              <Snackbar anchorOrigin={{ vertical:'top', horizontal:'left' }} open={this.state.snackbaropen}  SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span onClick={this.closeSnackbar} id="firebaseformchecking">Email or Password is incorrect</span>} />                    
+                  <div className="all-wrapper menu-side with-pattern">
+                    <div className="auth-box-w wider">
+                      <div className="logo-w">
+                        <a href="#"><img src='dist/img/todo.png'/></a>
+                      </div>
+                      <h3 className="auth-header" id="authHeader">
+                        Welcome ToDo App 
+                      </h3>
+                      <form action="" method="POST">
+                        <div className="form-group">
+
+                          <label htmlFor="">Username</label><input onChange={this.signupInputHandler} id="name" name="email" required="required" className="form-control" placeholder="Enter your username" type="text"/>
+                        
+                          <div className="pre-icon os-icon os-icon-user-male-circle"></div>
+                        </div>
+                        <div className="form-group">
+                        
+                          <label htmlFor="">Password</label><input onChange={this.signupInputHandler} id="password" name = "password" required="required" className="form-control" placeholder="Enter your password" type="password"/>
+                        
+                          <div className="pre-icon os-icon os-icon-fingerprint"></div>
+                        </div>
+
+                        {/* <TextField required label="Email" placeholder="Email" id="signupinput" defaultValue="1" className={styles.textField} onChange={this.signupInputHandler}  name="email"/>
+                        <TextField required type="password" label="Password" placeholder="Password" id="signupinput" defaultValue="" onChange={this.signupInputHandler} className={styles.textField}  name="password"/> */}
+
+
+                        <div className="buttons-w">
+                          <button className="btn btn-primary" onClick={this.handleSubmit} type="submit" name="submit" >Log me in</button>
+                        </div>
+                        <div className="form-message">
+                        </div>
+                      </form>
+                        <div className="buttons-w signup-w" >
+                          <div className="form-check-inline">
+                            <label className="form-check-label">Create Account</label> &nbsp;
+                          <a className="btn btn-secondary" href="#"  onClick={this.changeLoginPath} >Sign Up</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             )}
             </div>
@@ -175,6 +208,57 @@ function mapDispatchToProps(dispatch){
       }
   }
 }
+
+
+document.addEventListener('DOMContentLoaded',function(event){
+  // array with texts to type in typewriter
+  var dataText = [ "Welcome To ToDo App","Create Your Account", "Or ", "Login To Continue"];
+  
+  // type one text in the typwriter
+  // keeps calling itself until the text is finished
+  function typeWriter(text, i, fnCallback) {
+      // chekc if text isn't finished yet
+      if (i < (text.length)) {
+      // add next character to h1
+      document.getElementById("authHeader").innerHTML = text.substring(0, i+1) +'<span aria-hidden="true"></span>';
+
+      // wait for a while and call this function again for next character
+      setTimeout(function() {
+          typeWriter(text, i + 1, fnCallback)
+      }, 100);
+      }
+      // text finished, call callback if there is a callback function
+      else if (typeof fnCallback == 'function') {
+      // call callback after timeout
+      setTimeout(fnCallback, 700);
+      }
+  }
+  // start a typewriter animation for a text in the dataText array
+  function StartTextAnimation(i) {
+      if (typeof dataText[i] == 'undefined'){
+          setTimeout(function() {
+          StartTextAnimation(0);
+          }, 20000);
+      }
+      // check if dataText[i] exists
+      if (i < dataText[i].length) {
+          
+      var msg = new SpeechSynthesisUtterance();
+      var voices = window.speechSynthesis.getVoices();
+      msg.voice = voices[2];
+      msg.text = dataText[i];
+      speechSynthesis.speak(msg);
+
+      // text exists! start typewriter animation
+      typeWriter(dataText[i], 0, function(){
+      // after callback (and whole text has been animated), start next text
+      StartTextAnimation(i + 1);
+      });
+      }
+  }
+  // start the text animation
+  StartTextAnimation(0);
+  });
 
 
 Login.propTypes = {

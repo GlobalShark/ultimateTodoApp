@@ -71,3 +71,23 @@ box-shadow:5px 5px 5px 5px #aaaaaa;
      text-align:center;
      padding-top: 3%;
  }
+ 
+ .auth-box-w .logo-w {
+    text-align: center;
+    padding: 10%;
+}
+img{
+    width: 160px;
+    border-radius: 48%;
+}
+
+@keyframes caret {
+50% {
+    border-color: transparent;
+}
+}
+.signup-w{
+  background-color: #dbdbdb;
+  text-align: right; 
+  padding: 10px;
+}
