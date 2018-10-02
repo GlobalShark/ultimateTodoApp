@@ -13,7 +13,7 @@ Ultimate Todo App
 * Firestore
 
 ## Contributors
-* [Hunnain Pasha](github.com/hunnain) - gRPC, gRPC-WEB, UI
+* [Hunnain Pasha](hunnain) - gRPC, gRPC-WEB, UI
 * [Abdul Saboor](github.com/developerking123) - gRPC, AdobeXD
 * [Shayan Sheikh](github.com/shayan6) - UI/UX Design
 * [Syed Zohaib Hussain](github.com/RoxasZohbi) - MongoDB Rest API
