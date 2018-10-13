@@ -15,7 +15,7 @@ db.settings({
 
 export default class AuthActions {
 
-    
+    // Creating user with email and password 
     static signupAction(userObj){
         return dispatch => {
             firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
@@ -56,7 +56,7 @@ export default class AuthActions {
         }
         
     }
-
+    // SignIn user With email password 
     static signinAction (user) {
         return dispatch => {
             firebase.auth().signInWithEmailAndPassword(user.email, user.password)
@@ -87,7 +87,7 @@ export default class AuthActions {
 
         }
     }
-
+    
     static logOut(){
         return dispatch => {
             console.log("userWanttologOut");

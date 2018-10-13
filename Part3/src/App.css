@@ -1,5 +1,5 @@
 .App {
-  /*text-align: center;*/
+  text-align: center;
 }
 
 .App-logo {
@@ -31,8 +31,13 @@
 body {
   margin: 0;
   min-width: 250px;
-  background: linear-gradient(to bottom right, #D7BBEA, #65A8F1);
+  /* background: linear-gradient(to bottom right, #0275d84a, #5bc0de6b); */
+  background-image: url('img/bg1.png');
 }
+h1{
+  text-shadow: 3px 3px 5px #292b2c73;
+}
+
 .main{
     background-color: #673ab7;
     text-align: center;
@@ -144,11 +149,4 @@ ul li:nth-child(odd) {
  
   display: -webkit-inline-box;
   margin-left: 40px;
-}
-.form-group {
-  margin-bottom: 1rem;
-  width: 68%;
-  background: white;
-  padding: 6%;
-  box-shadow: 2px 2px 1px grey;
 }
