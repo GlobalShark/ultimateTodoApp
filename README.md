@@ -2,9 +2,9 @@
 Ultimate Todo Application 
 
 # Technologies used
-React
-Redux 
-Material UI
+* React
+* Redux 
+* Material UI
 gRPC
 gRPC-Web
 Postgresql Database
