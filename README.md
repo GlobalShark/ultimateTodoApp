@@ -1,5 +1,19 @@
 # ultimateTodoApp 
-Ultimate Todo App  
+Ultimate Todo Application 
+
+# Technologies used
+React
+Redux 
+Material UI
+gRPC
+gRPC-Web
+Postgresql Database
+MongoDB Database
+Firestore
+PWA 
+Flask
+REST API
+AdobeXD
 
 ## STEPS
 
