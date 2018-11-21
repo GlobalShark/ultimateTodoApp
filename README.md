@@ -5,7 +5,7 @@ Ultimate Todo Application
 * React
 * Redux 
 * Material UI
-gRPC
+* gRPC
 gRPC-Web
 Postgresql Database
 MongoDB Database
